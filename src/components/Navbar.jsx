@@ -1,9 +1,16 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ShopContext } from "../context/ShopContext";
 
 const Navbar = () => {
    const [visible, setVisible] = useState(false);
+   const { setShowSearch } = useContext(ShopContext);
+   const navigate = useNavigate();
+
+
+
+
    return (
       <nav className="flex items-center justify-between py-5 font-medium">
          <Link to='/'>
@@ -35,7 +42,7 @@ const Navbar = () => {
          </ul>
 
          <div className="flex items-center gap-6">
-            <img src={assets.search_icon} alt="search_icon" className="w-5 cursor-pointer" />
+            <img onClick={() => { setShowSearch(true); navigate('/collection') }} src={assets.search_icon} alt="search_icon" className="w-5 cursor-pointer" />
             <div className="group relative">
                <img src={assets.profile_icon} alt="" className="w-5 cursor-pointer" />
                <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4">
@@ -60,7 +67,7 @@ const Navbar = () => {
 
          <div className={`absolute top-0 right-0 bottom-0 overflow-hidden bg-white transition-all ${visible ? 'w-full' : 'w-0'}`}>
             <div className="flex flex-col text-gray-600">
-               <div onClick={() =>setVisible(false)} className="flex items-center gap-4 p-3 cursor-pointer">
+               <div onClick={() => setVisible(false)} className="flex items-center gap-4 p-3 cursor-pointer">
                   <img src={assets.dropdown_icon} className="h4 rotate-180" />
                   <p>Back</p>
                </div>
